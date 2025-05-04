@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="university.KPICard" owl="1">
+        <div class="kpi-card-custom bg-white rounded-3 shadow-sm" t-on-click="onClick">
+            <div class="kpi-icon-custom">
+                <i t-att-class="'fa ' + props.icon"/>
+            </div>
+            <div class="kpi-content">
+                <h2 class="kpi-title h6 text-muted mb-2" t-esc="props.title"/>
+                <div class="kpi-value h4 fw-bold mb-2" t-esc="props.count"/>
+            </div>
+        </div>
+    </t>
+</templates>

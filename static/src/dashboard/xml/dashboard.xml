@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="university.Dashboard" owl="1">
+        <div class="university-dashboard container-fluid py-4 bg-light">
+            <div class="dashboard-content">
+                <div t-if="state.loading" class="loading-container d-flex flex-column align-items-center justify-content-center p-5 bg-white rounded-3 shadow-sm">
+                    <div class="spinner mb-3">
+                        <i class="fa fa-spinner fa-spin fa-3x text-primary"></i>
+                    </div>
+                    <span class="fs-5">Loading dashboard data...</span>
+                </div>
+
+                <div t-if="state.error" class="error-container d-flex flex-column align-items-center justify-content-center p-5 bg-white rounded-3 shadow-sm">
+                    <div class="error-icon mb-3">
+                        <i class="fa fa-exclamation-triangle fa-3x text-danger"></i>
+                    </div>
+                    <div class="error-message fs-5 text-danger fw-medium">
+                        <t t-esc="state.error"/>
+                    </div>
+                </div>
+
+                <t t-if="!state.loading &amp;&amp; !state.error">
+                    <div class="dashboard-filters">
+                        <div class="filter-row">
+                            <label>College:</label>
+                            <select t-model="state.filters.college_id" t-on-change="onCollegeFilterChange">
+                                <option value="">All Colleges</option>
+                                <t t-if="state.filters.college_id">
+                                    <option
+                                        t-att-value="state.filters.college_id"
+                                        t-esc="state.filters.college_id"
+                                        selected="selected"
+                                    />
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="state.colleges" t-as="college" t-key="college.id">
+                                        <option t-att-value="college.id" t-esc="college.name"/>
+                                    </t>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div class="filter-row">
+                            <label>Department:</label>
+                            <select t-model="state.filters.department_id" t-on-change="onDepartmentFilterChange">
+                                <option value="">All Departments</option>
+                                <t t-if="state.filters.department_id">
+                                    <option
+                                        t-att-value="state.filters.department_id"
+                                        t-esc="state.filters.department_id"
+                                        selected="selected"
+                                    />
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="state.departments" t-as="department" t-key="department.id">
+                                        <option t-att-value="department.id" t-esc="department.name"/>
+                                    </t>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div class="filter-row">
+                            <label>Program:</label>
+                            <select t-model="state.filters.program_id" t-on-change="onProgramFilterChange">
+                                <option value="">All Programs</option>
+                                <t t-if="state.filters.program_id">
+                                    <option
+                                        t-att-value="state.filters.program_id"
+                                        t-esc="state.filters.program_id"
+                                        selected="selected"
+                                    />
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="state.programs" t-as="program" t-key="program.id">
+                                        <option t-att-value="program.id" t-esc="program.name"/>
+                                    </t>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div class="filter-row">
+                            <label>Course:</label>
+                            <select t-model="state.filters.course_id" t-on-change="onCourseFilterChange">
+                                <option value="">All Courses</option>
+                                <t t-if="state.filters.course_id">
+                                    <option
+                                        t-att-value="state.filters.course_id"
+                                        t-esc="state.filters.course_id"
+                                        selected="selected"
+                                    />
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="state.courses" t-as="course" t-key="course.id">
+                                        <option t-att-value="course.id" t-esc="course.name"/>
+                                    </t>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div class="filter-row">
+                            <label>Year:</label>
+                            <select t-model="state.filters.academic_year_id" t-on-change="onAcademicYearFilterChange">
+                                <option value="">All Academic Years</option>
+                                <t t-if="state.filters.academic_year_id">
+                                    <option
+                                        t-att-value="state.filters.academic_year_id"
+                                        t-esc="state.filters.academic_year_id"
+                                        selected="selected"
+                                    />
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="state.academic_years" t-as="academic_year" t-key="academic_year.id">
+                                        <option t-att-value="academic_year.id" t-esc="academic_year.name"/>
+                                    </t>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div class="filter-row">
+                            <label>Semester:</label>
+                            <select t-model="state.filters.semester_id" t-on-change="onSemesterFilterChange">
+                                <option value="">All Semesters</option>
+                                <t t-if="state.filters.semester_id">
+                                    <option
+                                        t-att-value="state.filters.semester_id"
+                                        t-esc="state.filters.semester_id"
+                                        selected="selected"
+                                    />
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="state.semesters" t-as="semester" t-key="semester.id">
+                                        <option t-att-value="semester.id" t-esc="semester.name"/>
+                                    </t>
+                                </t>
+                            </select>
+                        </div>
+
+                        <div class="filter-row">
+                            <label>Gender:</label>
+                            <select t-model="state.filters.gender_id" t-on-change="onGenderFilterChange">
+                                <option value="">All Genders</option>
+                                <t t-if="state.filters.gender_id">
+                                    <option
+                                        t-att-value="state.filters.gender_id"
+                                        t-esc="state.filters.gender_id"
+                                        selected="selected"
+                                    />
+                                </t>
+                                <t t-else="">
+                                    <t t-foreach="state.genders" t-as="gender" t-key="gender.id">
+                                        <option t-att-value="gender.id" t-esc="gender.name"/>
+                                    </t>
+                                </t>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- KPI Cards Row -->
+                    <div class="kpi-cards-container row g-3 mb-4">
+                        <div class="col-md-2 col-sm-6">
+                            <KPICard title="'Colleges'" count="state.counts.college" icon="'fa-building'" onClick="(ev) => onKPIClicked(ev)"/>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <KPICard title="'Departments'" count="state.counts.department" icon="'fa-sitemap'" onClick="(ev) => onKPIClicked(ev)"/>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <KPICard title="'Programs'" count="state.counts.program" icon="'fa-graduation-cap'" onClick="(ev) => onKPIClicked(ev)"/>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <KPICard title="'Courses'" count="state.counts.course" icon="'fa-book'" onClick="(ev) => onKPIClicked(ev)"/>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <KPICard title="'Total students'" count="state.userData.student.total" icon="'fa-user'" onClick="(ev) => onKPIClicked(ev)"/>
+                        </div>
+                        <div class="col-md-2 col-sm-6">
+                            <KPICard title="'Total Users'" count="state.userData.allUsers" icon="'fa-users'"/>
+                        </div>
+                    </div>
+
+                    <!-- Charts Row -->
+                    <div t-if="state.dataLoaded" class="charts-container row g-3">
+                        <div class="col-lg-6">
+                            <div class="chart-box bg-white p-3 rounded-3 shadow-sm h-100">
+                                <h3 class="h5 text-center mb-3">University Members by Type and Gender</h3>
+                                <ChartComponent
+                                    chartData="state.userChartData"
+                                    chartType="'doughnut'"
+                                    onClick="(ev) => onUserChartClicked(ev)"
+                                />
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="chart-box bg-white p-3 rounded-3 shadow-sm h-100">
+                                <h3 class="h5 text-center mb-3">University Semesters</h3>
+                                <ChartComponent
+                                    chartData="state.semesterChartData"
+                                    chartType="'pie'"
+                                    chartOptions="state.semesterChartOptions"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chart-box bg-white p-3 rounded-3 shadow-sm h-100">
+                                <h3 class="h5 text-center mb-3">Course</h3>
+                                <ChartComponent
+                                    chartData="state.courseChartData"
+                                    chartType="'bar'"
+                                    chartOptions="state.courseChartOptions"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chart-box bg-white p-3 rounded-3 shadow-sm h-100">
+                                <h3 class="h5 text-center mb-3">Outcomes</h3>
+                                <ChartComponent
+                                    chartData="state.outcomeChartData"
+                                    chartType="'bar'"
+                                    chartOptions="state.outcomeChartOptions"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chart-box bg-white p-3 rounded-3 shadow-sm h-100">
+                                <h3 class="h5 text-center mb-3">PLO</h3>
+                                <ChartComponent
+                                    chartData="state.ploChartData"
+                                    chartType="'bar'"
+                                    chartOptions="state.ploChartOptions"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

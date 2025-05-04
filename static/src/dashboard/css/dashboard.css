@@ -1,0 +1,92 @@
+html, body, .o_web_client {
+    height: auto !important;
+    overflow: visible !important;
+    min-height: unset !important;
+}
+
+.o_content {
+    overflow: visible !important;
+    height: auto !important;
+}
+
+.university-dashboard {
+    min-height: auto;
+    overflow: visible !important;
+}
+
+.kpi-card-custom {
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+.kpi-card-custom:hover {
+    transform: translateY(-3px);
+}
+
+.kpi-icon-custom {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    background-color: #f8f9fa;
+}
+
+.kpi-icon-custom i {
+    font-size: 24px;
+    color: #495057;
+}
+
+.chart-container-custom {
+    position: relative;
+    height: 350px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+.dashboard-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-row label {
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.selected-filter {
+    margin-left: 10px;
+    padding: 4px 8px;
+    background: #f0f0f0;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.filter-row select {
+    min-width: 200px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid #ced4da;
+}
